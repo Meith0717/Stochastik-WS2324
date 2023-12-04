@@ -1,14 +1,74 @@
 \documentclass{article}
+\usepackage[a4paper, left=3cm, right=3cm, top=2cm, bottom=2cm]{geometry}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{hyperref}
 
-\title{\LaTeX}
-\author{YourName}
-\date{}
+\title{Stochastik WS23}
+\author{Meiers Thierry}
+\date{November 2023}
 
 \begin{document}
 
 \maketitle
 
-\section{Introduction}
+\section{Grundlegendes}
+
+\subsection{Häufige Modelle: Münzwurf, Würfeln, Urnen}
+
+\subsection{Kombinatorische Formeln}
+
+\subsubsection{Ohne Wiederholungen}
+$x = (x_1, ..., x_n)$ Vektor mit verschiedenen Einträgen.
+\begin{enumerate}
+    \item Es gibt $n!:=n\cdot(n-1)\cdot...\cdot1$ verschiedene Vektoren der Länge n, die dieselben Einträge wie x haben.
+    \item Zieht man k-mal ohne Zurücklegen, so gibt es genau $\frac{n!}{(n-k)!}$ mögliche Ausgänge, wenn man die Reihenfolge der gezogenen Einträge beachtet.
+    \item Betrachtet man die Reihenfolge nicht, so gibt es genau $\binom{n}{k}=\frac{n!}{k!\cdot(n-k)!}$ mögliche Ausgänge.
+\end{enumerate}
+
+\subsubsection{Mit Wiederholungen}
+$x = (x_1, ..., x_n)$ Vektor.
+\begin{enumerate}
+    \item Sind genau r Einträge verschieden mit Häufigkeit $k_1, ..., k_r$, so gibt es genau $\frac{n!}{k_1!\cdot...\cdot k_r}$ verschiedene Möglichkeiten, die Einträge in einer Reihenfolge zu bringen.
+    \item Sind alle Einträge verschieden, und zieht man k-mal mit Zurücklegen, so gibt es genau $n^k$ mögliche Ausgänge, wenn man die Reihenfolge betrachtet. 
+    \item Betrachtet man die Reihenfolge nicht, so gibt es genau $\binom{n+k-1}{k}=\frac{(n+k-1)!}{k!\cdot(n-1)!}$ mögliche Ausgänge.
+\end{enumerate}
+
+\subsubsection{Stirling-Formel}
+Wie groß ist eigentlich n! ?
+\[\displaystyle \lim_{n \to \infty} \frac{n!}{\binom{n}{e}^n \sqrt{2\pi n}} = 1 \Rightarrow n! \approx \binom{n}{e}^n \sqrt{2\pi n}\]
+Bew:
+\[log(n!) = \sum_{i=1}^n log(i) = \int_{1}^{n} log(x)dx + O(log(n)) = x log(x) - x + O(log(n)) = n log(n) - n + O(log(n)) \]
+\[n! = e^{log(n!)} = e^{nlog(n)-n}O(n) = O(n)\binom{n}{e}^n\]
+
+\section{Wahrscheinlichkeitsräume und Zufalls-Variablen}
+
+\subsection{Zufallsvariablen}
+Sei E eine Menge. Ein zufälliges Element X von E heißt (E-Wertige) Zufalls-variable. Hierbei bedeutet zufällig, dass man X eine Verteilung zuordnen kann.
+
+\subsubsection{Verteilung einer Zufallsvariable}
+\begin{itemize}
+    \item Falls E ist höchstens abzählbar, so heißt X diskret und $x \rightarrow P(X=x) $ \textbf{Zähldichte} der Verteilung von X.
+    \item Falls $E \subseteq R$ und für $a < b$ $P(X \in (a, b)) = \int_a^b f(x)dx$ so heißt X \textbf{stetig} und f \textbf{Dichte} der (stetigen) Verteilung von X.
+\end{itemize}
+
+\subsubsection{Wahrscheinlichkeitsverteilung}
+Sei $P(E)$ die Potenzmenge von $E, P : A \subset P(E) \rightarrow [0, 1]$ eine Abbildung. 
+\begin{itemize}
+    \item $P(E) = 1$
+    \item $\forall a \in A \rightarrow P(a^c) = 1 - P(a)$
+    \item Für paarweise disjunkte $A_1, ..., A_n$ ist $P(A_1 \bigvee ... \bigvee A_n) = \sum_{n=1}^\infty p(An)$
+\end{itemize}
+
+\subsection{Einschluss-Ausschluss-Formel}
+\url{https://www.aleph1.info/?call=Puc&permalink=ema22_4_2_Z6}
+
+\subsection{Bild-Verteilungen}
+Ist X eine E-wertige ZV und $h : E → E'$, so ist $Y := h(X)$ eine $E'$-wertige ZV und
+ \[P(Y \in B) = P(X \in h^{-1}(B))\]
+Die Verteilung von Y ist Bildverteilung der Verteilung von X unter h
+
+\section{Unabhängigkeit}
 
 \end{document}
