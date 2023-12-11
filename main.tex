@@ -1,9 +1,12 @@
-\documentclass{article}
+\documentclass{report}
 \usepackage[a4paper, left=3cm, right=3cm, top=2cm, bottom=2cm]{geometry}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{float}
 \usepackage{amsmath}
 \usepackage{hyperref}
+
+\usepackage{amsmath}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
 
 \title{Stochastik WS23}
 \author{Meiers Thierry}
@@ -13,11 +16,9 @@
 
 \maketitle
 
-\section{Grundlegendes}
+\chapter*{Grundlegendes} 
 
-\subsection{Häufige Modelle: Münzwurf, Würfeln, Urnen}
-
-\subsection{Kombinatorische Formeln}
+\subsection*{Kombinatorische Formeln}
 
 \subsubsection{Ohne Wiederholungen}
 $x = (x_1, ..., x_n)$ Vektor mit verschiedenen Einträgen.
@@ -35,16 +36,16 @@ $x = (x_1, ..., x_n)$ Vektor.
     \item Betrachtet man die Reihenfolge nicht, so gibt es genau $\binom{n+k-1}{k}=\frac{(n+k-1)!}{k!\cdot(n-1)!}$ mögliche Ausgänge.
 \end{enumerate}
 
-\subsubsection{Stirling-Formel}
+\subsubsection*{Stirling-Formel}
 Wie groß ist eigentlich n! ?
 \[\displaystyle \lim_{n \to \infty} \frac{n!}{\binom{n}{e}^n \sqrt{2\pi n}} = 1 \Rightarrow n! \approx \binom{n}{e}^n \sqrt{2\pi n}\]
 Bew:
 \[log(n!) = \sum_{i=1}^n log(i) = \int_{1}^{n} log(x)dx + O(log(n)) = x log(x) - x + O(log(n)) = n log(n) - n + O(log(n)) \]
 \[n! = e^{log(n!)} = e^{nlog(n)-n}O(n) = O(n)\binom{n}{e}^n\]
 
-\section{Wahrscheinlichkeitsräume und Zufalls-Variablen}
+\section*{Wahrscheinlichkeitsräume und Zufalls-Variablen}
 
-\subsection{Zufallsvariablen}
+\subsection*{Zufallsvariablen}
 Sei E eine Menge. Ein zufälliges Element X von E heißt (E-Wertige) Zufalls-variable. Hierbei bedeutet zufällig, dass man X eine Verteilung zuordnen kann.
 
 \subsubsection{Verteilung einer Zufallsvariable}
@@ -53,22 +54,42 @@ Sei E eine Menge. Ein zufälliges Element X von E heißt (E-Wertige) Zufalls-var
     \item Falls $E \subseteq R$ und für $a < b$ $P(X \in (a, b)) = \int_a^b f(x)dx$ so heißt X \textbf{stetig} und f \textbf{Dichte} der (stetigen) Verteilung von X.
 \end{itemize}
 
-\subsubsection{Wahrscheinlichkeitsverteilung}
+\subsubsection*{Wahrscheinlichkeitsverteilung}
 Sei $P(E)$ die Potenzmenge von $E, P : A \subset P(E) \rightarrow [0, 1]$ eine Abbildung. 
 \begin{itemize}
     \item $P(E) = 1$
     \item $\forall a \in A \rightarrow P(a^c) = 1 - P(a)$
-    \item Für paarweise disjunkte $A_1, ..., A_n$ ist $P(A_1 \bigvee ... \bigvee A_n) = \sum_{n=1}^\infty p(An)$
+    \item Für paarweise disjunkte $A_1, ..., A_n$ ist $P(A_1  \bigvee ... \bigvee A_n) = \sum_{n=1}^\infty p(An)$
 \end{itemize}
 
-\subsection{Einschluss-Ausschluss-Formel}
+\subsection*{Einschluss-Ausschluss-Formel}
 \url{https://www.aleph1.info/?call=Puc&permalink=ema22_4_2_Z6}
 
-\subsection{Bild-Verteilungen}
+\subsection*{Bild-Verteilungen}
 Ist X eine E-wertige ZV und $h : E → E'$, so ist $Y := h(X)$ eine $E'$-wertige ZV und
  \[P(Y \in B) = P(X \in h^{-1}(B))\]
 Die Verteilung von Y ist Bildverteilung der Verteilung von X unter h
 
-\section{Unabhängigkeit}
+\section*{Unabhängigkeit}
 Seien $X_1, ..., X_n$ Zufallsvariablen. Falls $P(X_1 \in A_1, ..., X_v \in A_n) = P(X_1 \in A_1) \cdot ... \cdot P(X_n \in A_n)$ für alle $A_1, ..., A_n$, so heißen $X_1, ..., X_n$ unabhängig.
+
+\chapter*{Verteilungen und deren Eigenschaften}
+
+\section*{Zufallszahlen}
+Sei $E$ endlich und $e_1 \in E$ ein Startzustand. Des weiterem sei $T : E \rightarrow W$ eine Übergangsfunktion. Dann heißt $(x_1, x_2, ...)$ mit $x_1 := e_1 \in E$ und $x_{n+1} = T(x_n), n = 1, 2, ...$ eine Folge von Pseudozufallszahlen und $(T, e_1)$ ein Pseudo-Zufallszahlengenerator. 
+\subsection*{Kongruenzgenerator}
+$e_1 \in E = N_0$ Gib es $a, c, m \in N$ so dass $T(x) = ax + c \mod m$ so heißt $(T, e_1)$ linearer Kongruenzgenerator. Ist $c = 0$ so heißt $(T, e_1)$ multiplikativer Kongruenzgenerator.
+\subsection*{Satz von Euler}
+Ist $\delta(m)$ die Anzahl der zu m teilfremden Zahlen in $\{1, ..., m - 1\}$ und sind a, m, teilerfremd, so gilt \[a^{\delta(m)} = 1 \mod m\]
+
+\section*{Grundlegendes}
+\subsection*{Verteilungsfunktion}
+Sei X eine $E \subseteq R$-Wertige Zufallsvariable. Dann heißt \[x \rightarrow F_x(X) := P(X \leq x)\] Verteilungsfunktion von X. Sei X reelwertige Zufallsvariable, dann gilt
+
+\section*{Uniforme Verteilungen, Laplace-Experimente}
+\section*{Die Binomialverteilung}
+\section*{Die Normalverteilung}
+\section*{Die Exponentialverteilung}
+\section*{Pseudo-Zufallszahlen mit beliebiger Verteilung}
+
 \end{document}
