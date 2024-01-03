@@ -83,13 +83,70 @@ $e_1 \in E = N_0$ Gib es $a, c, m \in N$ so dass $T(x) = ax + c \mod m$ so heiß
 Ist $\delta(m)$ die Anzahl der zu m teilfremden Zahlen in $\{1, ..., m - 1\}$ und sind a, m, teilerfremd, so gilt \[a^{\delta(m)} = 1 \mod m\]
 
 \section*{Grundlegendes}
+
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{media/diskretVsStetig.png}
+\end{center}
+
 \subsection*{Verteilungsfunktion}
 Sei X eine $E \subseteq R$-Wertige Zufallsvariable. Dann heißt \[x \rightarrow F_x(X) := P(X \leq x)\] Verteilungsfunktion von X. Sei X reelwertige Zufallsvariable, dann gilt
 
-\section*{Uniforme Verteilungen, Laplace-Experimente}
-\section*{Die Binomialverteilung}
-\section*{Die Normalverteilung}
-\section*{Die Exponentialverteilung}
-\section*{Pseudo-Zufallszahlen mit beliebiger Verteilung}
+\subsection*{Uniforme Verteilungen}
+\subsubsection*{Diskrete}
+E endlich. Ist $x \rightarrow P(X = x)$ konstant, so heißt die Verteilung von X
+diskrete uniforme Verteilung und $P(X \in A) = \frac{|A|}{|E|}$
+\subsubsection*{Stetige}
+$E = [a, b]$ und X eine E-wertige ZV. Gilt für $[c, d] \subseteq [a, b]$ $P(X \in (c, d)) = \frac{d-c}{b-a}$ so heißt die Verteilung von X stetige uniforme Verteilung. Die Dichte ist dann $\frac{1}{b-a}dx\;\forall\;x \in [a, b]$
 
+\subsection*{Diskrete Verteilungen ($k \in N$)}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Verteilung} & \textbf{Formeln} & \textbf{Erwartungswert} & \textbf{Varianz} \\
+\hline
+Binomialverteilung $k \sim B(n, p)$ & $f(k|n,p) = \binom{n}{k} p^k (1-p)^{n-k}$ & $np$ & $np(1-p)$ \\
+Poisson-Verteilung & $f(k|\lambda) = \frac{e^{-\lambda} \lambda^k}{k!}$ & $\lambda$ & $\lambda$ \\
+Geometrische Verteilung & $f(k|p) = (1-p)^{k-1} p$ & $\frac{1}{p}$ & $\frac{1-p}{p^2}$ \\
+Hypergeometrische Verteilung & $f(k|N,n,K) = \frac{\binom{K}{k} \binom{N-K}{n-k}}{\binom{N}{n}}$ & $\frac{nK}{N}$ & $\frac{nK}{N} \cdot \frac{N-K}{N} \cdot \frac{N-n}{N-1}$ \\
+\hline
+\end{tabular}
+
+\subsection*{Kontinuierliche Verteilungen ($x \in R$)}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Verteilung} & \textbf{Dichtefunktion} & \textbf{Erwartungswert} & \textbf{Varianz} \\
+\hline
+Normalverteilung $X \sim N(\mu, \sigma^2)$ & $f(x|\mu, \sigma^2) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{(x - \mu)^2}{2\sigma^2}}$ & $\mu$ & $\sigma^2$ \\
+Exponentialverteilung $X \sim exp(\lambda).$ & $f(x|\lambda) = \lambda e^{-\lambda x}$ & $\frac{1}{\lambda}$ & $\frac{1}{\lambda^2}$ \\
+Gleichverteilung & $f(x|a,b) = \frac{1}{b-a}$ für $a \leq x \leq b$ & $\frac{a+b}{2}$ & $\frac{(b-a)^2}{12}$ \\
+Gamma-Verteilung & $f(x|a,\lambda) = \frac{\lambda^a x^{a-1} e^{-\lambda x}}{\Gamma(a)}$ & $\frac{a}{\lambda}$ & $\frac{a}{\lambda^2}$ \\
+\hline
+\end{tabular}
+
+\section*{Pseudo-Zufallszahlen mit beliebiger Verteilung}
+\subsection*{Simulation nach einer beliebigen Verteilung}
+Sei \(X\) eine reellwertige Zufallsvariable mit Verteilungsfunktion \(F\). Die Pseudoinverse von \(F\) für \(x \in [0, 1]\) wird definiert als
+\[ F^{-1}(x) := \inf\{q : F(q) \geq x\}. \]
+
+Dann ist \(F^{-1}(U)\) genauso verteilt wie \(X\), wobei \(U\) eine gleichverteilte Zufallsvariable auf \([0, 1]\) ist.
+
+\chapter*{Kenngrößen von Zufallsvariablen}
+\section*{Der Erwartungswert}
+Sei X eine E-Wertige Zufallsvariable und $h:E \rightarrow R$. Ist E Diskrete so heißt $E[h(x)] := \sum_{x \in E} h(x)P(X = x)$ Erwartungswert. Ist E stetig mir Dichte f, so ist $E[h(x)] := \int h(x)f(x)dx$ Erwartungswert von h(x).
+Ist speziell $E \subseteq R$ und h = id, so heißt $E[X] := \sum_{x \in E} xP(X=x), E[X]:= \int xf(x)dx$ Erwartungswert von X.
+\subsection*{Transformationssatz}
+Sein X eine E-Wertige diskret Zufallsvariable und $h : E \rightarrow R$. Dann gilt: \[E[h(x)] = \sum_{y \in h(E)} yP(h(x) = y)\]
+\subsection*{Eigenchaften des Erwartungswertes}
+\begin{itemize}
+    \item {Sei $a, b \in R$ Dann gilt: \[E[aX+bY] = aE[X]+bE[Y]\]}
+    \item {Gilt $X\leq Y$ so ist $E[X]\leq E[Y]$}
+\end{itemize}
+\section*{Varianz \& Covarianz}
+Sei $X$ entweder diskret $E \subseteq R-werige$ Zufallsvariable oder eine stetige Zufallsvariable und es existiert $\mu := E[X]$. Dann ist \[\sigma^2 := Var[x] = E[(X-\sigma)^2]\]
+die Varianz von X. In beiden Fällen heißt $\sigma = \sqrt{Var[X]}$ die Standardabweichung von X. 
+\subsubsection*{Bemerkung:}
+Für diskrete Zufallsvariablen: \[Var[X] = \sum_{x \in E}(x-\mu)^2P(X=x)\]
+für stetige Mit Dichte f \[Var[X] = \int(x-\mu)^2f(x)dx\]
+\subsection*{Eigenschaften der Varianz}
+Sei X entweder eine diskrete, $E \subseteq R$ wertige Zufallsvariable oder eine stetige Zufallsvariable. Dann gilt: \[Var[X] = E[X^2] - E[X]^2 = E[X(X - 1)] + E[X] - E[X]^2\]
+\section*{Covarianz und Korrelationskoeffizient}
 \end{document}
